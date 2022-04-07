@@ -1,13 +1,9 @@
-.skeleton-container {
-  position: absolute;
-  height: 5%;
-  width: 20%;
-  z-index: 999;
-  background-color: black;
-  color: white;
-  line-height: 1.15 !important;
-
-  &--disabled {
-    display: none;
+div[data-player] .container {
+  .skeleton {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    background: red;
+    font-size: 24px;
   }
 }

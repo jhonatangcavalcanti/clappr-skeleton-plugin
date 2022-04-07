@@ -7,6 +7,7 @@ import serve from 'rollup-plugin-serve'
 import filesize from 'rollup-plugin-filesize'
 import size from 'rollup-plugin-sizes'
 import visualize from 'rollup-plugin-visualizer'
+import svg from 'rollup-plugin-svg'
 import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 import babelConfig from './babel.config.json'
@@ -17,7 +18,8 @@ const babelPluginOptions = { ...babelConfig, exclude: 'node_modules/**', babelHe
 
 const plugins = [
   html(),
-  postcss(),
+  postcss({ inject: false }),
+  svg(),
   size(),
   filesize(),
   !!process.env.DEV && serve({ contentBase: ['dist', 'public'], host: '0.0.0.0', port: '8080' }),

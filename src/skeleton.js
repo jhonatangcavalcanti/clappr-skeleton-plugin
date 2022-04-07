@@ -1,9 +1,10 @@
-import { UICorePlugin, Events, Styler, template, version } from '@clappr/core'
+import { UIContainerPlugin, Events, Styler, template, version } from '@clappr/core'
 
 import pluginStyle from './public/skeleton.scss'
 import templateHtml from './public/skeleton.html'
+import linkSVG from './public/link_white_24dp.svg'
 
-export default class SkeletonPlugin extends UICorePlugin {
+export default class SkeletonPlugin extends UIContainerPlugin {
   get name() { return 'skeleton' }
 
   get supportedVersion() { return { min: version } }
@@ -12,74 +13,41 @@ export default class SkeletonPlugin extends UICorePlugin {
 
   get template() { return template(templateHtml) }
 
-  get events() { return { click: 'onClick' } }
+  get events() { return { 'mouseover .skeleton': 'onMouseOver' } }
 
-  constructor(core) {
-    super(core)
-    this.init()
-  }
+  constructor(container) {
+    super(container)
 
-  init() {
-    this.bindEvents()
+    this.render()
   }
 
   bindEvents() {
-    const coreEventListenerData = [
-      { object: this.core, event: Events.CORE_ACTIVE_CONTAINER_CHANGED, callback: this.onContainerChanged },
-      { object: this.core, event: Events.CORE_RESIZE, callback: this.registerPlayerResize },
-    ]
-
-    coreEventListenerData.forEach(item => this.stopListening(item.object, item.event, item.callback))
-    coreEventListenerData.forEach(item => this.listenTo(item.object, item.event, item.callback))
+    /*
+      Listens for CONTAINER events.
+      Ex.: CONTAINER_PLAY, CONTAINER_PAUSE, CONTAINER_SEEK, CONTAINER_TIMEUPDATE, CONTAINER_STOP, etc
+    */
+    this.listenTo(this.container, Events.CONTAINER_PLAY, this.onPlay)
   }
 
-  bindContainerEvents() {
-    const containerEventListenerData = [
-      { object: this.container, event: Events.CONTAINER_PAUSE, callback: this.hide },
-      { object: this.container, event: Events.CONTAINER_PLAY, callback: this.show },
-    ]
-    this.container && containerEventListenerData.forEach(item => this.listenTo(item.object, item.event, item.callback))
+  onPlay() {
+    console.log('onPlay') // eslint-disable-line
   }
 
-  registerPlayerResize(size) {
-    if (!size.width || typeof size.width !== 'number') return
-    this.playerSize = size
-  }
-
-  onContainerChanged() {
-    this.container && this.stopListening(this.container)
-    this.container = this.core.activeContainer
-    this.bindContainerEvents()
-  }
-
-  destroy() {
-    this.isRendered = false
-    super.destroy()
-  }
-
-  onClick() {
-    console.log('Skeleton plugin clicked!') // eslint-disable-line no-console
-  }
-
-  show() {
-    this.$container.removeClass('skeleton-container--disabled')
-  }
-
-  hide() {
-    this.$container.addClass('skeleton-container--disabled')
-  }
-
-  cacheElements() {
-    this.$container = this.$el.find('.skeleton-container')
+  onMouseOver() {
+    console.log('mouseover') // eslint-disable-line
   }
 
   render() {
-    if (this.isRendered) return
-    this.$el.html(this.template({ options: this.options }))
+    // this.$el -> Zepto, this.el -> DOM
+    this.$el.html(this.template({ icon: linkSVG }))
     this.$el.append(Styler.getStyleFor(pluginStyle))
-    this.core.$el[0].append(this.$el[0])
-    this.cacheElements()
-    this.isRendered = true
+    this.container.$el[0].append(this.$el[0])
+
     return this
+  }
+
+  destroy() {
+    this.stopListening(this.container, Events.CONTAINER_PLAY)
+    super.destroy()
   }
 }
