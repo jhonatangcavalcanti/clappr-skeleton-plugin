@@ -1,19 +1,19 @@
 import { UIContainerPlugin, Events, Styler, template, version } from '@clappr/core'
 
-import pluginStyle from './public/skeleton.scss'
-import templateHtml from './public/skeleton.html'
+import pluginStyle from './public/plugin.scss'
+import templateHtml from './public/plugin.html'
 import linkSVG from './public/link_white_24dp.svg'
 
-export default class SkeletonPlugin extends UIContainerPlugin {
-  get name() { return 'skeleton' }
+export default class EngagementPlugin extends UIContainerPlugin {
+  get name() { return 'engagement' }
 
   get supportedVersion() { return { min: version } }
 
-  get attributes() { return { class: 'skeleton' } }
+  get attributes() { return { class: 'engagement' } }
 
   get template() { return template(templateHtml) }
 
-  get events() { return { 'mouseover .skeleton': 'onMouseOver' } }
+  get events() { return { 'mouseover .engagement': 'onMouseOver' } }
 
   constructor(container) {
     super(container)

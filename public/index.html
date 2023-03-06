@@ -23,8 +23,8 @@
 var player = new Clappr.Player({
   source: 'http://clappr.io/highline.mp4',
   playback: { controls: true },
-  plugins: [window.SkeletonPlugin],
-  SkeletonOptions: {}
+  plugins: [window.EngagementPlugin],
+  EngagementOptions: {}
 });
 
 player.attachTo(playerElement);
@@ -37,7 +37,7 @@ player.attachTo(playerElement);
     <script type="text/javascript" charset="utf-8" src="https://cdn.jsdelivr.net/npm/@clappr/core@latest/dist/clappr-core.js" defer></script>
     <script type="text/javascript" charset="utf-8" src="https://pagecdn.io/lib/ace/1.4.12/ace.js" defer></script>
     <script type="text/javascript" charset="utf-8" src="javascript/main.js" defer></script>
-    <script type="text/javascript" charset="utf-8" src="clappr-skeleton-plugin.js" defer></script>
+    <script type="text/javascript" charset="utf-8" src="clappr-engagement-plugin.js" defer></script>
     <script type="text/javascript" charset="utf-8" src="javascript/clappr-config.js" defer></script>
   </body>
 </html>

@@ -27,18 +27,18 @@ const plugins = [
 ]
 
 const mainBundle = {
-  input: 'src/skeleton.js',
+  input: 'src/engagement.js',
   external: ['@clappr/core'],
   output: [
     {
-      name: 'SkeletonPlugin',
+      name: 'EngagementPlugin',
       file: pkg.main,
       format: 'umd',
       globals: { '@clappr/core': 'Clappr' },
     },
     !!process.env.MINIMIZE && {
-      name: 'SkeletonPlugin',
-      file: 'dist/clappr-skeleton-plugin.min.js',
+      name: 'EngagementPlugin',
+      file: 'dist/clappr-engagement-plugin.min.js',
       format: 'umd',
       globals: { '@clappr/core': 'Clappr' },
       plugins: terser(),
@@ -48,10 +48,10 @@ const mainBundle = {
 }
 
 const esmBundle = {
-  input: 'src/skeleton.js',
+  input: 'src/engagement.js',
   external: ['@clappr/core', /@babel\/runtime/],
   output: {
-    name: 'SkeletonPlugin',
+    name: 'EngagementPlugin',
     file: pkg.module,
     format: 'esm',
     globals: { '@clappr/core': 'Clappr' },

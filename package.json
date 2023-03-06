@@ -18,9 +18,9 @@
     "/dist",
     "/src"
   ],
-  "source": "src/skeleton.js",
-  "main": "dist/clappr-skeleton-plugin.js",
-  "module": "dist/clappr-skeleton-plugin.esm.js",
+  "source": "src/engagement.js",
+  "main": "dist/clappr-engagement-plugin.js",
+  "module": "dist/clappr-engagement-plugin.esm.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:joaopaulovieira/clappr-skeleton-plugin.git"
